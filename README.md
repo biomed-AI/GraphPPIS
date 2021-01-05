@@ -3,11 +3,11 @@ GraphPPIS is a novel framework for protein-protein interacting site prediction u
 
 # System requirement  
 GraphPPIS is developed under Linux environment with:  
-python 3.7.7  
-numpy 1.19.1  
-pandas 1.1.0  
-torch 1.6.0  
-scikit-learn 0.23.2  
+python  3.7.7  
+numpy  1.19.1  
+pandas  1.1.0  
+torch  1.6.0  
+scikit-learn  0.23.2  
 
 # Running GraphPPIS  
 Train the model with default parameters:  
