@@ -14,11 +14,11 @@ Train the model with default parameters:
 `python train.py`  
 Test the model you just trained:  
 `python test.py`  
-You can adjust the parameters via GraphPPIS_model.py
+You can adjust the parameters via GraphPPIS_model.py  
 The pre-trained GraphPPIS model and the simplified version using BLOSUM62 can be found under ./Model  
 
 # Web server and contact  
-The GraphPPIS web server is freely available at [http://biomed.nscc-gz.cn](http://biomed.nscc-gz.cn)
+The GraphPPIS web server is freely available at [http://biomed.nscc-gz.cn](http://biomed.nscc-gz.cn)  
 Contact:  
 Qianmu Yuan (yuanqm3@mail2.sysu.edu.cn)  
 Yuedong Yang (yangyd25@mail.sysu.edu.cn)
