@@ -11,9 +11,13 @@ scikit-learn 0.23.2
 
 # Running GraphPPIS  
 Train the model with default parameters:  
-`python train.py`  
+```
+python train.py
+```  
 Test the model you just trained:  
-`python test.py`  
+```
+python test.py
+```
 You can adjust the parameters via GraphPPIS_model.py  
 The pre-trained GraphPPIS model and the simplified version using BLOSUM62 can be found under ./Model  
 
