@@ -95,6 +95,8 @@ def test(test_dataframe):
     test_loader = DataLoader(dataset=ProDataset(test_dataframe), batch_size=BATCH_SIZE, shuffle=True, num_workers=2)
 
     for model_name in sorted(os.listdir(Model_Path)):
+        if "pkl" not in model_name:
+            continue
         print(model_name)
         model = GraphPPIS(LAYER, INPUT_DIM, HIDDEN_DIM, NUM_CLASSES, DROPOUT, LAMBDA, ALPHA, VARIANT)
         if torch.cuda.is_available():
