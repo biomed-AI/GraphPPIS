@@ -248,13 +248,11 @@ def main():
     with open(Dataset_Path + "PPI_dataset.pkl", "rb") as f:
         PPI_data = pickle.load(f)
 
-    IDs = []
-    sequences = []
-    labels = []
+    IDs, sequences, labels = [], [], []
 
     for ID in PPI_data["train"]:
-        item = PPI_data["train"][ID]
         IDs.append(ID)
+        item = PPI_data["train"][ID]
         sequences.append(item[0])
         labels.append(item[1])
 

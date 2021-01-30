@@ -95,8 +95,6 @@ def test(test_dataframe):
     test_loader = DataLoader(dataset=ProDataset(test_dataframe), batch_size=BATCH_SIZE, shuffle=True, num_workers=2)
 
     for model_name in sorted(os.listdir(Model_Path)):
-        if "pkl" not in model_name:
-            continue
         print(model_name)
         model = GraphPPIS(LAYER, INPUT_DIM, HIDDEN_DIM, NUM_CLASSES, DROPOUT, LAMBDA, ALPHA, VARIANT)
         if torch.cuda.is_available():
@@ -128,19 +126,53 @@ def main():
     with open(Dataset_Path + "PPI_dataset.pkl", "rb") as f:
         PPI_data = pickle.load(f)
 
-    IDs = []
-    sequences = []
-    labels = []
+    with open(Dataset_Path + "PPI_unbound_test.pkl", "rb") as f:
+        unbound_test = pickle.load(f)
 
+    mapping_dict = {}
+    with open(Dataset_Path + "bound_unbound_mapping.txt", "r") as f:
+        lines = f.readlines()[1:]
+    for line in lines:
+        record = line.strip().split()
+        bound_ID, unbound_ID, _ = record
+        mapping_dict[bound_ID] = unbound_ID
+
+    print("Evaluate GraphPPIS on Test_60")
+    IDs, sequences, labels = [], [], []
     for ID in PPI_data["test"]:
-        item = PPI_data["test"][ID]
         IDs.append(ID)
+        item = PPI_data["test"][ID]
         sequences.append(item[0])
         labels.append(item[1])
 
     test_dic = {"ID": IDs, "sequence": sequences, "label": labels}
     test_dataframe = pd.DataFrame(test_dic)
     test(test_dataframe)
+
+    print("Evaluate GraphPPIS on Test_31_bound")
+    IDs, sequences, labels = [], [], []
+    for ID in mapping_dict:
+        IDs.append(ID)
+        item = PPI_data["test"][ID]
+        sequences.append(item[0])
+        labels.append(item[1])
+
+    test_dic = {"ID": IDs, "sequence": sequences, "label": labels}
+    test_dataframe = pd.DataFrame(test_dic)
+    test(test_dataframe)
+
+    print("Evaluate GraphPPIS on Test_31_unbound")
+    IDs, sequences, labels = [], [], []
+    for ID in unbound_test:
+        IDs.append(ID)
+        item = unbound_test[ID]
+        sequences.append(item[0])
+        labels.append(item[1])
+
+    test_dic = {"ID": IDs, "sequence": sequences, "label": labels}
+    test_dataframe = pd.DataFrame(test_dic)
+    test(test_dataframe)
+
 
 if __name__ == "__main__":
     main()
