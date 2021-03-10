@@ -1,5 +1,5 @@
 # GraphPPIS  
-GraphPPIS is a novel framework for protein-protein interacting site prediction using deep graph convolutional network via initial residual and identity mapping, which is able to capture information from high-order spatially neighboring amino acids.
+GraphPPIS is a novel framework for structure-based protein-protein interacting site prediction using deep graph convolutional network via initial residual and identity mapping, which is able to capture information from high-order spatially neighboring amino acids.
 
 # System requirement  
 GraphPPIS is developed under Linux environment with:  
