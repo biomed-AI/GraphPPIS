@@ -29,7 +29,7 @@ You can adjust the parameters via GraphPPIS_model.py
 The pre-trained GraphPPIS model and the simplified version using BLOSUM62 can be found under ./Model  
 
 # Web server and contact  
-The GraphPPIS web server is freely available at [http://biomed.nscc-gz.cn:9094/apps/GraphPPIS](http://biomed.nscc-gz.cn:9094/apps/GraphPPIS)  
+The GraphPPIS web server is freely available at [https://biomed.nscc-gz.cn:9094/apps/GraphPPIS](https://biomed.nscc-gz.cn:9094/apps/GraphPPIS)  
 Contact:  
 Qianmu Yuan (yuanqm3@mail2.sysu.edu.cn)  
 Yuedong Yang (yangyd25@mail.sysu.edu.cn)
