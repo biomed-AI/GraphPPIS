@@ -245,14 +245,14 @@ def train_full_model(all_dataframe, aver_epoch):
 
 
 def main():
-    with open(Dataset_Path + "PPI_dataset.pkl", "rb") as f:
-        PPI_data = pickle.load(f)
+    with open(Dataset_Path + "Train_335.pkl", "rb") as f:
+        Train_335 = pickle.load(f)
 
     IDs, sequences, labels = [], [], []
 
-    for ID in PPI_data["train"]:
+    for ID in Train_335:
         IDs.append(ID)
-        item = PPI_data["train"][ID]
+        item = Train_335[ID]
         sequences.append(item[0])
         labels.append(item[1])
 
