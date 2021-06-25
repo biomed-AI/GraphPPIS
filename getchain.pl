@@ -1,16 +1,14 @@
 #!/usr/bin/perl
 
-if (@ARGV < 1){die "usage: $0 PDBID(e.g. 3mcbA)\n";}
-elsif (@ARGV == 1){$pdbdir_local = "/bigdat1/pub/PDB/divided"; getchain($ARGV[0]);}
+if (@ARGV != 2){die "usage: $0 PDB_file_path PDBID(e.g. 3mcbA)\n";}
 else {$pdbdir_local = $ARGV[0]; getchain($ARGV[1]);}
 sub getchain{
 	my ($pdbnm) = @_;
-	$pdbnm .= "_" if length($pdbnm) == 4;
 	if(length($pdbnm) != 5) {
 		die "irregular pdbnm (5 chars required): $pdbnm\n";
 	}
-	$sd = substr($pdbnm, 1, 2); $bn = substr($pdbnm, 0, 4);
-	$pn0 = "$pdbdir_local/$sd/pdb$bn.ent.gz";
+	$bn = substr($pdbnm, 0, 4);
+	$pn0 = "$pdbdir_local/pdb$bn.ent.gz";
 	if(-e $pn0){
 		open(fp, "gunzip -c $pn0|");
 	} elsif(-e "$pdbdir_local/$bn.pdb.gz"){
