@@ -1,5 +1,5 @@
 # GraphPPIS  
-GraphPPIS is a novel framework for structure-based protein-protein interaction site prediction using deep graph convolutional network, which is able to capture information from high-order spatially neighboring amino acids. Here, the GraphPPIS source code is designed for high-throughput predictions, and does not have the limitation of one query protein per run. We recommend you to use the [web server](https://biomed.nscc-gz.cn:9094/apps/GraphPPIS) of GraphPPIS if your input is small.
+GraphPPIS is a novel framework for structure-based protein-protein interaction site prediction using deep graph convolutional network, which is able to capture information from high-order spatially neighboring amino acids. The GraphPPIS source code is designed for high-throughput predictions, and does not have the limitation of one query protein per run. We recommend you to use the [web server](https://biomed.nscc-gz.cn:9094/apps/GraphPPIS) of GraphPPIS if your input is small.  
 
 # System requirement  
 GraphPPIS is developed under Linux environment with:  
@@ -8,15 +8,20 @@ numpy  1.19.1
 pandas  1.1.0  
 torch  1.6.0  
 
-# Software and database dependencies  
-For the full & accurate version of GraphPPIS, you need to install the following three softwares and download the corresponding databases:  
+# Software and database requirement  
+To run the full & accurate version of GraphPPIS, you need to install the following three software and download the corresponding databases:  
 [BLAST+](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) and [UniRef90](https://www.uniprot.org/downloads)  
 [HH-suite](https://github.com/soedinglab/hh-suite) and [Uniclust30](https://uniclust.mmseqs.com/)  
 [DSSP](https://github.com/cmbi/dssp)  
-However, if you use the fast version of GraphPPIS, only DSSP is needed.
+However, if you use the fast version of GraphPPIS, only DSSP is needed.  
+
+# Build database and set path  
+1. Use `makeblastdb` in BLAST+ to build UniRef90 ([guide](https://www.ncbi.nlm.nih.gov/books/NBK569841/))  
+2. Build Uniclust30 following [this guide](https://github.com/soedinglab/uniclust-pipeline)  
+3. Set `UR90`, `HHDB`, `PSIBLAST`, `HHBLITS` and `DSSP` in `GraphPPIS_predict.py`  
 
 # Run GraphPPIS  
-Running GraphPPIS for prediction:  
+Run GraphPPIS for prediction:  
 ```
 python GraphPPIS_predict.py -p PDBID.pdb
 ```
