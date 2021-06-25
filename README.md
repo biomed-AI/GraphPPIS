@@ -15,13 +15,13 @@ For the full & accurate version of GraphPPIS, you need to install the following 
 [DSSP](https://github.com/cmbi/dssp)  
 However, if you use the fast version of GraphPPIS, only DSSP is needed.
 
-# Running GraphPPIS  
+# Run GraphPPIS  
 Running GraphPPIS for prediction:  
 ```
 python GraphPPIS_predict.py -p PDBID.pdb
 ```
 
-# Dataset and Feature  
+# Dataset, feature and model  
 The datasets used in this study (Train_335, Test_60, Test_331 and UBtest_31) are stored in ./Dataset in python dictionary format:  
 ```
 Dataset[ID] = [seq, label]
