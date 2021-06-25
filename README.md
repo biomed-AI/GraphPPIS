@@ -1,4 +1,4 @@
-# GraphPPIS  
+# Intro  
 GraphPPIS is a novel framework for structure-based protein-protein interaction site prediction using deep graph convolutional network, which is able to capture information from high-order spatially neighboring amino acids. The GraphPPIS source code is designed for high-throughput predictions, and does not have the limitation of one query protein per run. We recommend you to use the [web server](https://biomed.nscc-gz.cn:9094/apps/GraphPPIS) of GraphPPIS if your input is small.  
 
 # System requirement  
@@ -16,17 +16,22 @@ To run the full & accurate version of GraphPPIS, you need to install the followi
 However, if you use the fast version of GraphPPIS, only DSSP is needed.  
 
 # Build database and set path  
-1. Use `makeblastdb` in BLAST+ to build UniRef90 ([guide](https://www.ncbi.nlm.nih.gov/books/NBK569841/))  
-2. Build Uniclust30 following [this guide](https://github.com/soedinglab/uniclust-pipeline)  
-3. Set `UR90`, `HHDB`, `PSIBLAST`, `HHBLITS` and `DSSP` in `GraphPPIS_predict.py`  
+1. Use `makeblastdb` in BLAST+ to build UniRef90 ([guide](https://www.ncbi.nlm.nih.gov/books/NBK569841/)).  
+2. Build Uniclust30 following [this guide](https://github.com/soedinglab/uniclust-pipeline).  
+3. Set path variables `UR90`, `HHDB`, `PSIBLAST`, `HHBLITS` and `DSSP` in `GraphPPIS_predict.py`.  
 
-# Run GraphPPIS  
-Run GraphPPIS for prediction:  
+# Run GraphPPIS for prediction  
+For a protein chain in PDB:  
 ```
-python GraphPPIS_predict.py -p PDBID.pdb
+python GraphPPIS_predict.py -p PDBID+chain
+```
+For a user-custom PDB file:  
+```
+python GraphPPIS_predict.py -f XXX.pdb -c [A-Z]
 ```
 
 # Dataset, feature and model  
+We provide the datasets, pre-computed features and the two pre-trained models here for those interested in reproducing our paper.
 The datasets used in this study (Train_335, Test_60, Test_331 and UBtest_31) are stored in ./Dataset in python dictionary format:  
 ```
 Dataset[ID] = [seq, label]
