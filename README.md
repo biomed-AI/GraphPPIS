@@ -11,8 +11,8 @@ torch  1.6.0
 # Software and database dependencies  
 For the full & accurate version of GraphPPIS, you need to install the following three softwares and download the corresponding databases:  
 [BLAST+](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) and [UniRef90](https://www.uniprot.org/downloads)  
-[HH-suite](https://github.com/soedinglab/hh-suite) and [Uniclust30]("https://uniclust.mmseqs.com/")  
-[DSSP](https://github.com/cmbi/dssp)
+[HH-suite](https://github.com/soedinglab/hh-suite) and [Uniclust30](https://uniclust.mmseqs.com/)  
+[DSSP](https://github.com/cmbi/dssp)  
 However, if you use the fast version of GraphPPIS, only DSSP is needed.
 
 # Running GraphPPIS  
