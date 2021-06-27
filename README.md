@@ -24,11 +24,15 @@ However, if you use the fast version of GraphPPIS, only DSSP is needed.
 # Run GraphPPIS for prediction  
 For a protein chain in PDB:  
 ```
-python GraphPPIS_predict.py -p PDBID+chain
+python GraphPPIS_predict.py -p PDB_ID -c chain_ID
 ```
 For a user-custom PDB file:  
 ```
-python GraphPPIS_predict.py -f XXX.pdb -c [A-Z]
+python GraphPPIS_predict.py -f XXX.pdb -c chain_ID
+```
+The program uses the fast model in default. If you want to use the slow & accurate mode, type as follows:  
+```
+python GraphPPIS_predict.py -p PDB_ID -c chain_ID -m slow
 ```
 
 # Dataset, feature and model  
