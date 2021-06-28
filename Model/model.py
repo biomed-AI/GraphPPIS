@@ -1,4 +1,3 @@
-import pickle
 import math
 import torch
 import numpy as np
@@ -6,25 +5,16 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 from torch.nn.parameter import Parameter
-
-
-# Path
-Feature_Path = "./Feature/"
+from torch.autograd import Variable
 
 # Seed
 SEED = 2020
 np.random.seed(SEED)
 torch.manual_seed(SEED)
-if torch.cuda.is_available():
-    torch.cuda.set_device(0)
-    torch.cuda.manual_seed(SEED)
+code_path = "/home/yuanqm/GraphPPIS_server/code/"
 
 # GraphPPIS parameters
-EMBEDDING = "e" # b for BLOSUM62; e for evolutionary features (PSSM+HMM)
-MAP_TYPE = "d" # d for discrete maps; c for continuous maps
 MAP_CUTOFF = 14
-
-INPUT_DIM = (34 if EMBEDDING == "b" else 54)
 HIDDEN_DIM = 256
 LAYER = 8
 DROPOUT = 0.1
@@ -36,35 +26,8 @@ LEARNING_RATE = 1E-3
 WEIGHT_DECAY = 0
 BATCH_SIZE = 1
 NUM_CLASSES = 2 # [not bind, bind]
-NUMBER_EPOCHS = 50
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-
-def embedding(sequence_name, seq, embedding_type):
-    if embedding_type == "b":
-        seq_embedding = []
-        Max_blosum = np.array([4, 5, 6, 6, 9, 5, 5, 6, 8, 4, 4, 5, 5, 6, 7, 4, 5, 11, 7, 4])
-        Min_blosum = np.array([-3, -3, -4, -4, -4, -3, -4, -4, -3, -4, -4, -3, -3, -4, -4, -3, -2, -4, -3, -3])
-        with open(Feature_Path + "blosum/blosum_dict.pkl", "rb") as f:
-            blosum_dict = pickle.load(f)
-        for aa in seq:
-            seq_embedding.append(blosum_dict[aa])
-        seq_embedding = (np.array(seq_embedding) - Min_blosum) / (Max_blosum - Min_blosum)
-    elif embedding_type == "e":
-        pssm_feature = np.load(Feature_Path + "pssm/" + sequence_name + '.npy')
-        hmm_feature = np.load(Feature_Path + "hmm/" + sequence_name + '.npy')
-        seq_embedding = np.concatenate([pssm_feature, hmm_feature], axis = 1)
-    return seq_embedding.astype(np.float32)
-
-
-def get_dssp_features(sequence_name):
-    dssp_feature = np.load(Feature_Path + "dssp/" + sequence_name + '.npy')
-    return dssp_feature.astype(np.float32)
-
-
-def norm_dis(mx): # from SPROF
-    return 2 / (1 + (np.maximum(mx, 4) / 4))
+device = torch.device('cpu')
 
 
 def normalize(mx):
@@ -76,38 +39,43 @@ def normalize(mx):
     return result
 
 
-def load_graph(sequence_name):
-    dismap = np.load(Feature_Path + "distance_map/" + sequence_name + ".npy")
-    mask = ((dismap >= 0) * (dismap <= MAP_CUTOFF))
-    if MAP_TYPE == "d":
-        adjacency_matrix = mask.astype(np.int)
-    elif MAP_TYPE == "c":
-        dismap = mask * dismap
-        adjacency_matrix = norm_dis(dismap)
-    norm_matrix = normalize(adjacency_matrix.astype(np.float32))
-    return norm_matrix
+def load_features(ID, data_path, mode):
+    if mode == "fast":   
+        blosum_feature = np.load(data_path + "blosum/" + ID + '.npy')
+        dssp_feature = np.load(data_path + "dssp/" + ID + '.npy')
+        node_features = np.concatenate([blosum_feature, dssp_feature], axis = 1).astype(np.float32)
+    else:
+        pssm_feature = np.load(data_path + "pssm/" + ID + '.npy')
+        hhm_feature = np.load(data_path + "hhm/" + ID + '.npy')
+        dssp_feature = np.load(data_path + "dssp/" + ID + '.npy')
+        node_features = np.concatenate([pssm_feature, hhm_feature, dssp_feature], axis = 1).astype(np.float32)
+    return node_features
+
+
+def load_graph(ID, data_path):
+    matrix = np.load(data_path + 'dismap/' + ID + '.npy').astype(np.float32)
+    matrix = normalize(matrix)
+    return matrix
 
 
 class ProDataset(Dataset):
-    def __init__(self, dataframe):
-        self.names = dataframe['ID'].values
-        self.sequences = dataframe['sequence'].values
-        self.labels = dataframe['label'].values
+    def __init__(self, dataframe, data_path, mode):
+        self.IDs = dataframe['ID'].values
+        self.data_path = data_path
+        self.mode = mode
 
     def __getitem__(self, index):
-        sequence_name = self.names[index]
-        sequence = self.sequences[index]
-        label = np.array(self.labels[index])
+        ID = self.IDs[index]
 
-        sequence_embedding = embedding(sequence_name, sequence, EMBEDDING)
-        structural_features = get_dssp_features(sequence_name)
-        node_features = np.concatenate([sequence_embedding, structural_features], axis = 1)
-        graph = load_graph(sequence_name)
+        # L * 34/54
+        node_features = load_features(ID, self.data_path, self.mode)
+        # L * L
+        adjacency_matrix = load_graph(ID, self.data_path)
 
-        return sequence_name, sequence, label, node_features, graph
+        return node_features, adjacency_matrix
 
     def __len__(self):
-        return len(self.labels)
+        return len(self.IDs)
 
 
 class GraphConvolution(nn.Module):
@@ -183,3 +151,38 @@ class GraphPPIS(nn.Module):
         x = x.float()
         output = self.deep_gcn(x, adj)  # output.shape = (seq_len, NUM_CLASSES)
         return output
+
+
+def evaluate(model, data_loader):
+    model.eval()
+    pred = []
+
+    for data in data_loader:
+        with torch.no_grad():
+            node_features, adjacency_matrix = data
+
+            node_features = Variable(node_features)
+            graphs = Variable(adjacency_matrix)
+
+            node_features = torch.squeeze(node_features)
+            graphs = torch.squeeze(graphs)
+
+            y_pred = model(node_features, graphs)
+            softmax = torch.nn.Softmax(dim=1)
+            y_pred = softmax(y_pred)
+            y_pred = y_pred.cpu().detach().numpy()
+            pred += [pred[1] for pred in y_pred]
+
+    return pred
+
+
+def test(test_dataframe, data_path, mode):
+    test_loader = DataLoader(dataset=ProDataset(test_dataframe, data_path, mode), batch_size=BATCH_SIZE, shuffle=False, num_workers=3)
+
+    INPUT_DIM = (34 if mode == "fast" else 54)
+    GraphPPIS_model = GraphPPIS(LAYER, INPUT_DIM, HIDDEN_DIM, NUM_CLASSES, DROPOUT, LAMBDA, ALPHA, VARIANT)
+    GraphPPIS_model.load_state_dict(torch.load(code_path + "model/GraphPPIS_{}.pkl".format(mode), map_location = device))
+
+    test_pred = evaluate(GraphPPIS_model, test_loader)
+
+    return test_pred
