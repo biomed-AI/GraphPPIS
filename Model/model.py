@@ -11,7 +11,7 @@ from torch.autograd import Variable
 SEED = 2020
 np.random.seed(SEED)
 torch.manual_seed(SEED)
-code_path = "/home/yuanqm/GraphPPIS_server/code/"
+model_path = "./Model/"
 
 # GraphPPIS parameters
 MAP_CUTOFF = 14
@@ -181,7 +181,7 @@ def test(test_dataframe, data_path, mode):
 
     INPUT_DIM = (34 if mode == "fast" else 54)
     GraphPPIS_model = GraphPPIS(LAYER, INPUT_DIM, HIDDEN_DIM, NUM_CLASSES, DROPOUT, LAMBDA, ALPHA, VARIANT)
-    GraphPPIS_model.load_state_dict(torch.load(code_path + "model/GraphPPIS_{}.pkl".format(mode), map_location = device))
+    GraphPPIS_model.load_state_dict(torch.load(model_path + "GraphPPIS_{}.pkl".format(mode), map_location = device))
 
     test_pred = evaluate(GraphPPIS_model, test_loader)
 
