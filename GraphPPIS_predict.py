@@ -35,14 +35,14 @@ def get_PDB(PDBID, pdb_file, chain, data_path):
     ID = PDBID + chain
     if PDBID == "user" and pdb_file != "": # User custom PDB file
         os.system("mv {} {}".format(pdb_file, os.path.dirname(pdb_file) + "/user.pdb"))
-        os.system("perl getchain_pdb.pl {} {}".format(os.path.dirname(pdb_file), ID))
+        os.system("perl getchain.pl {} {}".format(os.path.dirname(pdb_file), ID))
     else:
         os.system("wget -P {} http://www.rcsb.org/pdb/files/{}.pdb.gz".format(data_path, PDBID))
         if os.path.exists(data_path + "{}.pdb.gz".format(PDBID)) == False:
             return "", error_code_dic["PDB not exist"]
-        os.system("perl getchain_pdb.pl {} {}".format(data_path, ID))
+        os.system("perl getchain.pl {} {}".format(data_path, ID))
 
-    os.system("mv {} {}".format(ID, data_path)) # the output of getchain_pdb.pl is in current directory
+    os.system("mv {} {}".format(ID, data_path)) # the output of getchain.pl is in current directory
 
     seq = ""
     current_pos = -1
