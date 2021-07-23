@@ -45,7 +45,7 @@ def get_PDB(PDBID, pdb_file, chain, data_path):
     os.system("mv {} {}".format(ID, data_path)) # the output of getchain.pl is in current directory
 
     seq = ""
-    current_pos = -1
+    current_pos = -1000
     with open(data_path + ID, "r") as f:
         lines = f.readlines()
     for line in lines:
