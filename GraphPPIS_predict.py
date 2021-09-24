@@ -333,7 +333,7 @@ if __name__ == '__main__':
 
     if args.chain == None:
         print("Chain identifier is not provided!")
-    elif args.chain not in string.ascii_letters:
+    elif args.chain not in list(string.ascii_letters + string.digits):
         print("Invalid chain identifier!")
     elif args.mode not in ["fast", "slow"]:
         print("Invalid mode!")
