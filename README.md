@@ -37,7 +37,7 @@ python GraphPPIS_predict.py -p PDB_ID -c chain_ID -m slow
 
 # Dataset, feature and model  
 We provide the datasets, pre-computed features and the two pre-trained models here for those interested in reproducing our paper.  
-The datasets used in this study (Train_335, Test_60, Test_331 and UBtest_31) are stored in ./Dataset in python dictionary format:  
+The datasets used in this study (Train_335, Test_60, Test_315 and UBtest_31) are stored in ./Dataset in python dictionary format:  
 ```
 Dataset[ID] = [seq, label]
 ```
