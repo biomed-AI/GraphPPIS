@@ -1,5 +1,5 @@
 # Intro  
-GraphPPIS is a novel framework for structure-based protein-protein interaction site prediction using deep graph convolutional network, which is able to capture information from high-order spatially neighboring amino acids. The GraphPPIS source code is designed for high-throughput predictions, and does not have the limitation of one query protein per run. We recommend you to use the [web server](https://biomed.nscc-gz.cn/apps/GraphPPIS) of GraphPPIS if your input is small.  
+GraphPPIS is a novel framework for structure-based protein-protein interaction site prediction using deep graph convolutional network, which is able to capture information from high-order spatially neighboring amino acids. The GraphPPIS source code is designed for high-throughput predictions, and does not have the limitation of one query protein per run. We recommend you to use the [web server](http://bio-web1.nscc-gz.cn/apps) of GraphPPIS if your input is small.  
 ![GraphPPIS_framework](https://github.com/biomed-AI/GraphPPIS/blob/master/IMG/GraphPPIS_framework.png)  
 
 # System requirement  
@@ -35,14 +35,33 @@ The program uses the fast model in default. If you want to use the slow & accura
 python GraphPPIS_predict.py -p PDB_ID -c chain_ID -m slow
 ```
 
-# Dataset, feature and model  
-We provide the datasets, pre-computed features and the two pre-trained models here for those interested in reproducing our paper.  
+# How to reproduce our work  
+We provide the datasets, pre-computed features, the two pre-trained models, and the training and evaluation codes for those interested in reproducing our paper.  
 The datasets used in this study (Train_335, Test_60, Test_315 and UBtest_31) are stored in ./Dataset in fasta format.  
 The distance maps(L * L) and normalized feature matrixes PSSM(L * 20), HMM(L * 20) and DSSP(L * 14) are stored in ./Feature in numpy format.  
 The pre-trained GraphPPIS full model and the simplified version using BLOSUM62 can be found under ./Model  
+The training and evaluation codes can be found in [here](https://github.com/yuanqm55/GraphPPIS).  
 
-# Web server and contact  
-The GraphPPIS web server is freely available at [https://biomed.nscc-gz.cn/apps/GraphPPIS](https://biomed.nscc-gz.cn/apps/GraphPPIS)  
+# Web server, citation and contact  
+The GraphPPIS web server is freely available: [old interface](https://biomed.nscc-gz.cn/apps/GraphPPIS) or [new interface](http://bio-web1.nscc-gz.cn/apps)  
+
+Citation:  
+```
+@article{10.1093/bioinformatics/btab643,
+    author = {Yuan, Qianmu and Chen, Jianwen and Zhao, Huiying and Zhou, Yaoqi and Yang, Yuedong},
+    title = "{Structure-aware protein–protein interaction site prediction using deep graph convolutional network}",
+    journal = {Bioinformatics},
+    volume = {38},
+    number = {1},
+    pages = {125-132},
+    year = {2021},
+    month = {09},
+    issn = {1367-4803},
+    doi = {10.1093/bioinformatics/btab643},
+    url = {https://doi.org/10.1093/bioinformatics/btab643},
+}
+```
+
 Contact:  
 Qianmu Yuan (yuanqm3@mail2.sysu.edu.cn)  
 Yuedong Yang (yangyd25@mail.sysu.edu.cn)
