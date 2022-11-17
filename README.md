@@ -46,7 +46,7 @@ The training and evaluation codes can be found in [here](https://github.com/yuan
 The GraphPPIS web server is freely available: [old interface](https://biomed.nscc-gz.cn/apps/GraphPPIS) or [new interface](http://bio-web1.nscc-gz.cn/apps)  
 
 Citation:  
-```
+```bibtex
 @article{10.1093/bioinformatics/btab643,
     author = {Yuan, Qianmu and Chen, Jianwen and Zhao, Huiying and Zhou, Yaoqi and Yang, Yuedong},
     title = "{Structure-aware protein–protein interaction site prediction using deep graph convolutional network}",
