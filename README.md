@@ -1,5 +1,5 @@
 # Intro  
-GraphPPIS is a novel framework for structure-based protein-protein interaction site prediction using deep graph convolutional network, which is able to capture information from high-order spatially neighboring amino acids. The GraphPPIS source code is designed for high-throughput predictions, and does not have the limitation of one query protein per run. We recommend you to use the [web server](http://bio-web1.nscc-gz.cn/apps) of GraphPPIS if your input is small.  
+GraphPPIS is a novel framework for structure-based protein-protein interaction site prediction using deep graph convolutional network, which is able to capture information from high-order spatially neighboring amino acids. The GraphPPIS source code is designed for high-throughput predictions, and does not have the limitation of one query protein per run. We recommend you to use the [web server](http://bio-web1.nscc-gz.cn/apps/graphppis-v2) of GraphPPIS if your input is small.  
 ![GraphPPIS_framework](https://github.com/biomed-AI/GraphPPIS/blob/master/IMG/GraphPPIS_framework.png)  
 
 # System requirement  
@@ -40,10 +40,10 @@ We provide the datasets, pre-computed features, the two pre-trained models, and 
 The datasets used in this study (Train_335, Test_60, Test_315 and UBtest_31) are stored in ./Dataset in fasta format.  
 The distance maps(L * L) and normalized feature matrixes PSSM(L * 20), HMM(L * 20) and DSSP(L * 14) are stored in ./Feature in numpy format.  
 The pre-trained GraphPPIS full model and the simplified version using BLOSUM62 can be found under ./Model  
-The training and evaluation codes can be found in [here](https://github.com/yuanqm55/GraphPPIS).  
+:star:The training and evaluation codes can be found in [here](https://github.com/yuanqm55/GraphPPIS).  
 
 # Web server, citation and contact  
-The GraphPPIS web server is freely available: [old interface](https://biomed.nscc-gz.cn/apps/GraphPPIS) or [new interface](http://bio-web1.nscc-gz.cn/apps)  
+The GraphPPIS web server is freely available in [here](http://bio-web1.nscc-gz.cn/apps)  
 
 Citation:  
 ```bibtex
