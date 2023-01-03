@@ -43,7 +43,7 @@ The pre-trained GraphPPIS full model and the simplified version using BLOSUM62 c
 :star:The training and evaluation codes can be found in [here](https://github.com/yuanqm55/GraphPPIS).  
 
 # Web server, citation and contact  
-The GraphPPIS web server is freely available in [here](http://bio-web1.nscc-gz.cn/apps)  
+The GraphPPIS web server is freely available in [here](http://bio-web1.nscc-gz.cn/apps/graphppis-v2).  
 
 Citation:  
 ```bibtex
