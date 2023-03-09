@@ -1,5 +1,5 @@
 # Intro  
-GraphPPIS is a novel framework for structure-based protein-protein interaction site prediction using deep graph convolutional network, which is able to capture information from high-order spatially neighboring amino acids. The GraphPPIS source code is designed for high-throughput predictions, and does not have the limitation of one query protein per run. We recommend you to use the [web server](http://bio-web1.nscc-gz.cn/app/graphppis-v2) of GraphPPIS if your input is small.  
+GraphPPIS is a novel framework for structure-based protein-protein interaction site prediction using deep graph convolutional network, which is able to capture information from high-order spatially neighboring amino acids. The GraphPPIS source code is designed for high-throughput predictions, and does not have the limitation of one query protein per run. We recommend you to use the [web server (new version)](http://bio-web1.nscc-gz.cn/app/graphppis-v2) of GraphPPIS if your input is small.  
 ![GraphPPIS_framework](https://github.com/biomed-AI/GraphPPIS/blob/master/IMG/GraphPPIS_framework.png)  
 
 # System requirement  
