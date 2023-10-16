@@ -40,7 +40,7 @@ We provide the datasets, pre-computed features, the two pre-trained models, and 
 The datasets used in this study (Train_335, Test_60, Test_315 and UBtest_31) are stored in ./Dataset in fasta format.  
 The distance maps(L * L) and normalized feature matrixes PSSM(L * 20), HMM(L * 20) and DSSP(L * 14) are stored in ./Feature in numpy format.  
 The pre-trained GraphPPIS full model and the simplified version using BLOSUM62 can be found under ./Model  
-:star:The training and evaluation codes can be found in [here](https://github.com/yuanqm55/GraphPPIS).  
+:star::star::star:The training and evaluation codes can be found in [here](https://github.com/yuanqm55/GraphPPIS).  
 
 # Web server, citation and contact  
 The GraphPPIS web server is freely available in [here](http://bio-web1.nscc-gz.cn/app/graphppis-v2).  
